@@ -1,0 +1,22 @@
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<servers>
+    <server>
+        <username>${env.JFROG_USERNAME}</username>
+        <password>${env.JFROG_M2_PASSWORD}</password>
+        <id>central</id>
+    </server>
+    <server>
+        <username>${env.JFROG_USERNAME}</username>
+        <password>${env.JFROG_RELEASE_PASSWORD}</password>
+        <id>release</id>
+    </server>
+</servers>
+    <mirrors>
+        <mirror>
+            <id>central</id>
+            <mirrorOf>central</mirrorOf>
+            <url>${env.JFROG_URL}/${env.JFROG_M2_REPO}</url>
+        </mirror>
+    </mirrors>
+</settings>

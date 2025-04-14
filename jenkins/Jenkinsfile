@@ -1,12 +1,35 @@
 pipeline {
     agent any
+     tools {
+        jdk 'OpenJDK-17'     
+        maven 'Maven-3.9.6'   
+    }
     options {
         skipStagesAfterUnstable()
     }
+     environment {
+            JFROG_TEST_REPORT_PASSWORD = credentials('JFROG_TEST_REPORT_PASSWORD') // Best practice to use credstore
+            JFROG_USERNAME = credentials('JFROG_USERNAME') // Best practice to use credstore
+            JFROG_RELEASE_PASSWORD = credentials('JFROG') // Best practice to use credstore
+            JFROG_M2_PASSWORD = credentials('JFROG_M2_PASSWORD') // Best practice to use credstore
+        }
     stages {
+        stage('Load Environment Variables') {
+            steps {
+              sh '''
+                set -a
+                source ../.env
+                set +a
+                '''
+               sh 'cp settings-jfrog.xml ~/.m2/settings.xml'
+
+            }
+        }
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                //sh 'mvn -B -DskipTests clean package'
+                sh 'echo "The secret is "${env.JFROG_M2_PASSWORD}'
+                sh 'mvn -B -DskipTests clean deploy'
             }
         }
         stage('Test') {
@@ -16,7 +39,10 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
-                }
+                    // Archive test result files for download
+                    archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
+                    def TIMESTAMP = "${new Date().format('yyyyMMdd_HHmmss')}"
+                    curl -u${env.JFROG_USERNAME}:${env.JFROG_TEST_REPORT_PASSWORD} -T target/surefire-reports/*.xml "${env.JFROG_URL}/${env.JFROG_TEST_REPORT_REPO}/com.mycompany.app.AppTest.${TIMESTAMP}.xml"
             }
         }
         stage('Deliver') { 
