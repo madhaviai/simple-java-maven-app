@@ -10,9 +10,7 @@ pipeline {
     }
     options {
         skipStagesAfterUnstable()
-    }
-    stages {
-        
+    }        
     stages {
         stage('Load Environment Variables') {
             steps {
