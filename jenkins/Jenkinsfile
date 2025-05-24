@@ -25,6 +25,8 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
+                    // Archive test result files for download
+                    archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                 }
             }
         }
