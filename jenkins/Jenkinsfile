@@ -4,17 +4,27 @@ pipeline {
         jdk 'OpenJDK-17'     
         maven 'Maven-3.9.6'   
     }
+    environment {
+        // Load from .env dynamically
+        ENV_FILE = '../.env'
+    }
     options {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Env') {
+        
+    stages {
+        stage('Load Environment Variables') {
             steps {
-              sh '''
-                set -a
-                source ../.env
-                set +a
-                '''
+                script {
+                    def envContent = readFile(env.ENV_FILE)
+                    envContent.split("\n").each { line ->
+                        if (line && line.contains("=") && !line.startsWith("#")) {
+                            def (key, value) = line.trim().split("=")
+                            env."${key}" = value
+                        }
+                    }
+                }
             }
         }
         stage('Print Env') {
