@@ -4,15 +4,24 @@ pipeline {
         jdk 'OpenJDK-17'     
         maven 'Maven-3.9.6'   
     }
-
-    environment {
-        JAVA_HOME = "${tool 'OpenJDK-17'}"
-        PATH = "${env.JAVA_HOME}/bin:${tool 'Maven-3.9.6'}/bin:${env.PATH}"
-    }
     options {
         skipStagesAfterUnstable()
     }
     stages {
+        stage('Env') {
+            steps {
+              sh '''
+                set -a
+                source .env
+                set +a
+                '''
+            }
+        }
+        stage('Print Env') {
+          steps {
+            echo "JFrog URL: ${env.JFROG_URL}"
+          }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
