@@ -11,7 +11,6 @@ pipeline {
         stage('Load Environment Variables') {
             steps {
                 script {
-                    sh 'cp ../.env .env'
                     def envContent = readFile('.env')
                     envContent.split("\n").each { line ->
                         if (line && line.contains("=") && !line.startsWith("#")) {
