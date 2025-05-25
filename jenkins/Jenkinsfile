@@ -21,7 +21,7 @@ pipeline {
         stage('Build') {
             steps {
                 //sh 'mvn -B -DskipTests clean package'
-                sh 'echo ${env.JFROG_USERNAME}'
+                echo "M2_REPO: ${env.JFROG_USERNAME}"
                 sh 'mvn -B -DskipTests clean deploy'
             }
         }
