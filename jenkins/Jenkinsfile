@@ -10,7 +10,7 @@ pipeline {
      environment {
             JFROG_TEST_REPORT_PASSWORD = credentials('JFROG_TEST_REPORT_PASSWORD') // Best practice to use credstore
             JFROG_USERNAME = credentials('JFROG_USERNAME') // Best practice to use credstore
-            JFROG_RELEASE_PASSWORD = credentials('JFROG') // Best practice to use credstore
+            JFROG_RELEASE_PASSWORD = credentials('JFROG_RELEASE_PASSWORD') // Best practice to use credstore
             JFROG_M2_PASSWORD = credentials('JFROG_M2_PASSWORD') // Best practice to use credstore
         }
     stages {
@@ -28,7 +28,7 @@ pipeline {
         stage('Build') {
             steps {
                 //sh 'mvn -B -DskipTests clean package'
-                sh 'echo "The secret is "${env.JFROG_M2_PASSWORD}'
+                sh 'echo "The secret is "${env.JFROG_USERNAME}'
                 sh 'mvn -B -DskipTests clean deploy'
             }
         }
