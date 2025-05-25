@@ -8,36 +8,16 @@ pipeline {
         skipStagesAfterUnstable()
     }
      environment {
+            JFROG_M2_REPO=opsera_customer1_m2
+            JFROG_URL=https://trial28qn92.jfrog.io/artifactory
+            JFROG_RELEASE_REPO=opsera_customer1_release
+            JFROG_TEST_REPORT_REPO=opsera_customer1_test_report
             JFROG_TEST_REPORT_PASSWORD = credentials('JFROG_TEST_REPORT_PASSWORD') // Best practice to use credstore
             JFROG_USERNAME = credentials('JFROG_USERNAME') // Best practice to use credstore
             JFROG_RELEASE_PASSWORD = credentials('JFROG_RELEASE_PASSWORD') // Best practice to use credstore
             JFROG_M2_PASSWORD = credentials('JFROG_M2_PASSWORD') // Best practice to use credstore
         }
     stages {
-        stage('Load Environment Variables') {
-         steps {
-
-            script {
-              // Load and export each line from .env to Jenkins env
-              def envFile = readFile('.env').split('\n')
-              for (line in envFile) {
-                if (line && line.contains('=')) {
-                  def (key, value) = line.split('=', 2)
-                  env."${key.trim()}" = value.trim()
-                }
-            }
-            }
-               sh '''
-              // #!/bin/bash
-              // set -a
-              // ls
-              // . ./.env
-              // set +a
-              echo "Loaded JFROG_URL: ${env.JFROG_URL}"
-              cp settings-jfrog.xml ~/.m2/settings.xml
-            '''
-            }
-        }
         stage('Build') {
             steps {
                 //sh 'mvn -B -DskipTests clean package'
