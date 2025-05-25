@@ -16,13 +16,13 @@ pipeline {
     stages {
         stage('Load Environment Variables') {
             steps {
-              sh '''
-                set -a
-                source ../.env
-                set +a
-                '''
-               sh 'cp settings-jfrog.xml ~/.m2/settings.xml'
-
+               sh '''
+              #!/bin/bash
+              set -a
+              source ../.env
+              set +a
+              cp settings-jfrog.xml ~/.m2/settings.xml
+            '''
             }
         }
         stage('Build') {
