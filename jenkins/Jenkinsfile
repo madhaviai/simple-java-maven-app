@@ -29,7 +29,6 @@ pipeline {
         stage('Build') {
             steps {
                 //sh 'mvn -B -DskipTests clean package'
-                sh 'echo "The secret is "${env.JFROG_USERNAME}'
                 sh 'mvn -B -DskipTests clean deploy'
             }
         }
