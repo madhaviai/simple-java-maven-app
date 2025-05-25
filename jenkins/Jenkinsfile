@@ -42,7 +42,9 @@ pipeline {
                     // Archive test result files for download
                     archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                     def TIMESTAMP = "${new Date().format('yyyyMMdd_HHmmss')}"
-                    def proc = "curl -u${env.JFROG_USERNAME}:${env.JFROG_TEST_REPORT_PASSWORD} -T target/surefire-reports/*.xml "${env.JFROG_URL}/${env.JFROG_TEST_REPORT_REPO}/com.mycompany.app.AppTest.${TIMESTAMP}.xml".execute()
+                    sh """
+                     curl -u${env.JFROG_USERNAME}:${env.JFROG_TEST_REPORT_PASSWORD} -T target/surefire-reports/*.xml "${env.JFROG_URL}/${env.JFROG_TEST_REPORT_REPO}/com.mycompany.app.AppTest.${TIMESTAMP}.xml"
+                    """
                     proc.waitFor()
                     println "stdout: ${proc.in.text}"
                     println "stderr: ${proc.err.text}"
