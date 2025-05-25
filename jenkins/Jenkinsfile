@@ -15,13 +15,25 @@ pipeline {
         }
     stages {
         stage('Load Environment Variables') {
-            steps {
+         steps {
+
+            script {
+              // Load and export each line from .env to Jenkins env
+              def envFile = readFile('.env').split('\n')
+              for (line in envFile) {
+                if (line && line.contains('=')) {
+                  def (key, value) = line.split('=', 2)
+                  env."${key.trim()}" = value.trim()
+                }
+            }
+            }
                sh '''
-              #!/bin/bash
-              set -a
-              ls
-              . ./.env
-              set +a
+              // #!/bin/bash
+              // set -a
+              // ls
+              // . ./.env
+              // set +a
+              echo "Loaded JFROG_URL: ${env.JFROG_URL}"
               cp settings-jfrog.xml ~/.m2/settings.xml
             '''
             }
