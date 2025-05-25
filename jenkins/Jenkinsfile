@@ -19,7 +19,7 @@ pipeline {
                sh '''
               #!/bin/bash
               set -a
-              . ../.env
+              . .env
               set +a
               cp settings-jfrog.xml ~/.m2/settings.xml
             '''
