@@ -18,12 +18,22 @@ Below is a list of secret names and their corresponding usernames that are expec
 
 ### Secrets and Their Usage
 
-| Secret Name               | Description                                           | Expected by Code/Settings         | Secret Type  |
-|---------------------------|-------------------------------------------------------|----------------------------------|--------------|
-| `JFROG_USERNAME`           | JFrog username for authentication                    | `settings.xml` and Pipeline      | **Username** |
-| `JFROG_M2_PASSWORD`        | JFrog password for `JFROG_USERNAME`                   | `settings.xml`                   | **Password** |
-| `JFROG_TEST_REPORT_PASSWORD`| JFrog password for test report repository           | Pipeline `Upload Test Reports`   | **Password** |
-| `JFROG_RELEASE_PASSWORD`   | JFrog password for the release repository            | Pipeline `Deploy to JFrog`       | **Password** |
+| Secret Name              | Description                                           | Expected by Code/Settings         |
+|--------------------------|-------------------------------------------------------|----------------------------------|
+| `JFROG_USERNAME`          | JFrog username for authentication                    | `settings.xml` and Pipeline      |
+| `JFROG_M2_PASSWORD`          | JFrog password for `JFROG_USERNAME`               | `settings.xml`                   |
+| `JFROG_TEST_REPORT_PASSWORD`   | JFrog password for test report repository       | Pipeline `Upload Test Reports`   |
+| `JFROG_RELEASE_PASSWORD`  | JFrog password for the release repository            | Pipeline `Deploy to JFrog`       |
+
+### Environment Variables and Their Usage
+
+| Variable Name             | Description                                               | Used In                            | 
+|---------------------------|-----------------------------------------------------------|------------------------------------|
+| `JFROG_M2_REPO`           | JFrog Maven repo used to cache dependencies               | `settings.xml`, `pom.xml`          |                           |
+| `JFROG_URL`               | Base URL of the JFrog Artifactory instance                | `mvn deploy`, `curl upload`        | 
+| `JFROG_RELEASE_REPO`      | Repo used to upload build artifacts (JARs)                | `mvn deploy`, `curl upload`        | 
+| `JFROG_TEST_REPORT_REPO`  | Repo used to store test result XMLs                       | `curl upload test reports`         | 
+| `POM_VERSION`             | Maven project version used in deployment path naming      | `pom.xml`                          | 
 
 ### Procedure to Create Secrets in GitHub
 
