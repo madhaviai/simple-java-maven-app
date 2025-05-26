@@ -2,13 +2,13 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <servers>
         <server>
-            <username>$JFROG_USERNAME</username>
-            <password>$JFROG_M2_PASSWORD</password>
+            <username>${env.JFROG_USERNAME}</username>
+            <password>${env.JFROG_M2_PASSWORD}</password>
             <id>central</id>
         </server>
         <server>
-            <username>$JFROG_USERNAME</username>
-            <password>$JFROG_RELEASE_PASSWORD</password>
+            <username>${env.JFROG_USERNAME}</username>
+            <password>${env.JFROG_RELEASE_PASSWORD}</password>
             <id>release</id>
         </server>
     </servers>
