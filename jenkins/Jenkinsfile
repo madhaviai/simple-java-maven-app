@@ -21,24 +21,6 @@ pipeline {
             JFROG_M2_PASSWORD = credentials('JFROG_M2_PASSWORD') // Best practice to use credstore
         }
     stages {
-        // stage('Load .env') {
-        //     steps {
-        //         script {
-        //             def lines = readFile('.env').split('\n')
-        //             def envVars = []
-
-        //             for (line in lines) {
-        //                 line = line.trim()
-        //                 if (line && !line.startsWith('#')) {
-        //                     def (k, v) = line.split('=', 2)
-        //                     envVars << "${k.trim()}=${v.trim()}"
-        //                 }
-        //             }
-        //         }
-        //         }
-        //     }
-
-
 
         stage('Build') {
             steps {
