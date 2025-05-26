@@ -11,5 +11,5 @@ services:
       - "8080:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - ./jenkins_dsl/jenkins-job.groovy:/usr/share/jenkins/ref/init.groovy.d/init.groovy
+      # - ./jenkins_dsl/jenkins-job.groovy:/usr/share/jenkins/ref/init.groovy.d/init.groovy
 
