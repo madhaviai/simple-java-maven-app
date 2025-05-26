@@ -16,11 +16,11 @@ jobs:
     environment: opsera_cutomer1
 
     env:
-#      JFROG_URL: https://trial28qn92.jfrog.io/artifactory
-#      JFROG_M2_REPO: opsera_customer1_m2
-#      JFROG_RELEASE_REPO: opsera_customer1_release
-#      JFROG_TEST_REPORT_REPO: opsera_customer1_test_reports
-#      POM_VERSION: 1.3-SNAPSHOT
+      JFROG_URL: https://trial28qn92.jfrog.io/artifactory
+      JFROG_M2_REPO: opsera_customer1_m2
+      JFROG_RELEASE_REPO: opsera_customer1_release
+      JFROG_TEST_REPORT_REPO: opsera_customer1_test_reports
+      POM_VERSION: 1.3-SNAPSHOT
 
       JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
       JFROG_M2_PASSWORD: ${{ secrets.JFROG_M2_PASSWORD }}
@@ -38,11 +38,6 @@ jobs:
         java-version: '17'
         cache: 'maven'
 
-    - name: Load .env file
-      run: |
-        set -a
-        source .env
-        set +a
 
     - name: Build and Deploy (Skip Tests)
       run: |
