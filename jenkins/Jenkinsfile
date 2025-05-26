@@ -8,19 +8,30 @@ pipeline {
         skipStagesAfterUnstable()
     }
      environment {
-            JFROG_M2_REPO='opsera_customer1_m2'
-            JFROG_URL='https://trial28qn92.jfrog.io/artifactory'
-            JFROG_RELEASE_REPO='opsera_customer1_release'
-            JFROG_TEST_REPORT_REPO='opsera_customer1_test_report'
+            // JFROG_M2_REPO='opsera_customer1_m2'
+            // JFROG_URL='https://trial28qn92.jfrog.io/artifactory'
+            // JFROG_RELEASE_REPO='opsera_customer1_release'
+            // JFROG_TEST_REPORT_REPO='opsera_customer1_test_report'
             JFROG_TEST_REPORT_PASSWORD = credentials('JFROG_TEST_REPORT_PASSWORD') // Best practice to use credstore
             JFROG_USERNAME = credentials('JFROG_USERNAME') // Best practice to use credstore
             JFROG_RELEASE_PASSWORD = credentials('JFROG_RELEASE_PASSWORD') // Best practice to use credstore
             JFROG_M2_PASSWORD = credentials('JFROG_M2_PASSWORD') // Best practice to use credstore
         }
     stages {
+        stage('Load .env') {
+            steps {
+                script {
+                    def props = readProperties file: '.env'
+                    for (entry in props) {
+                        env[entry.key] = entry.value
+                    }
+                }
+            }
+        }
         stage('Build') {
             steps {
                 //sh 'mvn -B -DskipTests clean package'
+                sh 'echo ${env.JFROG_M2_REPO}
                 sh 'mvn -B -DskipTests clean deploy'
             }
         }
