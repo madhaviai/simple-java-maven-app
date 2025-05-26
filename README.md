@@ -37,7 +37,7 @@ Below is a list of secret names and their corresponding usernames that are expec
        - `JFROG_RELEASE_PASSWORD` → **secret_value_for_release**
        - `JFROG_M2_PASSWORD` → **secret_value_for_maven**
        - `JFROG_USERNAME` → **username**
-3. Once updated the Jenkinsfile will be updated with variables and secrets, the Pipeline can be created, and test reports can be verified successfully.
+3. Once the Jenkinsfile is updated with variables and secrets, the Pipeline can be created, and test reports can be verified successfully.
 For complete details on setting up the Jenkins pipeline, uploading environment variables, configuring secrets, and verifying test results, refer to the full documentation at the following link:
 
 [Complete Setup and Verification Documentation](https://docs.google.com/document/d/1j6EXVC9it2fB4u2O_M7_rbGhmmA3nVH_6WUXlXMKe60/edit?usp=sharing)
