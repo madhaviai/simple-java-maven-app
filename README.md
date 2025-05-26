@@ -6,7 +6,6 @@ This repository contains the GitHub Actions pipeline configuration for deploying
 
 Before running the GitHub Actions pipeline, ensure the following are set up:
 
-- **Docker**: Docker should be installed on your local machine for local testing or on the server where GitHub Actions runners will be used.
 - **JFrog Artifactory**: You must have a JFrog Artifactory account and repositories set up to store the Maven artifacts and build reports. The pipeline requires access to the following repositories:
   - `opsera_customer1_m2` (for Maven dependencies)
   - `opsera_customer1_release` (for released JARs)
