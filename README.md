@@ -1,15 +1,48 @@
-# simple-java-maven-app
+# Jenkins CI/CD Pipeline Setup with JFrog and Docker Compose
 
-This repository is for the
-[Build a Java app with Maven](https://jenkins.io/doc/tutorials/build-a-java-app-with-maven/)
-tutorial in the [Jenkins User Documentation](https://jenkins.io/doc/).
+This repository contains the Jenkins pipeline configuration for deploying the Java Maven application using JFrog Artifactory and Docker Compose. The pipeline is configured to handle dependencies via JFrog repositories and deploy the application efficiently.
 
-The repository contains a simple Java application which outputs the string
-"Hello world!" and is accompanied by a couple of unit tests to check that the
-main application works as expected. The results of these tests are saved to a
-JUnit XML report.
+## Prerequisites
 
-The `jenkins` directory contains an example of the `Jenkinsfile` (i.e. Pipeline)
-you'll be creating yourself during the tutorial and the `jenkins/scripts` subdirectory
-contains a shell script with commands that are executed when Jenkins processes
-the "Deliver" stage of your Pipeline.
+Before running the Jenkins pipeline, ensure the following are set up on the server:
+
+- **Docker**: Make sure Docker is installed and running on the server where Jenkins is hosted.
+- **JFrog Artifactory**: You must have a JFrog Artifactory account and a repository set up to store the Maven artifacts and build reports. The pipeline requires access to the following repositories:
+  - `opsera_customer1_m2` (for Maven dependencies)
+  - `opsera_customer1_release` (for released JARs)
+  - `opsera_customer1_test_report` (for storing test reports)
+
+## Secret Variables for JFrog and Pipeline Configuration
+
+Below is a list of secret names and their corresponding usernames that are expected by the Jenkins pipeline. These secrets are used in the `settings.xml` and the pipeline for authentication to JFrog repositories. Follow the procedure to create these secrets in Jenkins.
+
+### Secrets and Their Usage
+
+| Secret Name              | Description                                           | Expected by Code/Settings         | Secret Type  |
+|--------------------------|-------------------------------------------------------|----------------------------------|--------------|
+| `JFROG_USERNAME`          | JFrog username for authentication                    | `settings.xml` and Pipeline      | **Username** |
+| `JFROG_M2_PASSWORD`          | JFrog password for `JFROG_USERNAME`               | `settings.xml`                   | **Password** |
+| `JFROG_TEST_REPORT_PASSWORD`   | JFrog password for test report repository       | Pipeline `Upload Test Reports`   | **Password** |
+| `JFROG_RELEASE_PASSWORD`  | JFrog password for the release repository            | Pipeline `Deploy to JFrog`       | **Password** |
+
+### Procedure to Create Secrets in Jenkins
+
+1. **Login to Jenkins**:
+   - Open your Jenkins dashboard in a web browser.
+
+2. **Create Credentials for Secrets**:
+   - Go to **Manage Jenkins** → **Manage Credentials** → **(Global)** → **Add Credentials**.
+     - **Secret Text**:
+       - `JFROG_TEST+REPORT_PASSWORD` → **secret_value_for_report**
+       - `JFROG_RELEASE_PASSWORD` → **secret_value_for_release**
+       - `JFROG_M2_PASSWORD` → **secret_value_for_maven**
+       - `JFROG_USERNAME` → **username**
+3. Once updated the Jenkinsfile will be updated with variables and secrets, the Pipeline can be created, and test reports can be verified successfully.
+For complete details on setting up the Jenkins pipeline, uploading environment variables, configuring secrets, and verifying test results, refer to the full documentation at the following link:
+
+[Complete Setup and Verification Documentation](https://docs.google.com/document/d/1j6EXVC9it2fB4u2O_M7_rbGhmmA3nVH_6WUXlXMKe60/edit?usp=sharing)
+
+Please follow the documentation for step-by-step guidance. Thank you!
+
+
+
