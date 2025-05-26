@@ -14,8 +14,8 @@
     </servers>
     <mirrors>
         <mirror>
-            <id>*</id>
-            <mirrorOf>central</mirrorOf>
+            <id>central</id>
+            <mirrorOf>*</mirrorOf>
             <url>${env.JFROG_URL}/${env.JFROG_M2_REPO}</url>
         </mirror>
     </mirrors>
