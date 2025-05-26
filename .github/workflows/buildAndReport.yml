@@ -1,6 +1,11 @@
-name: Build and Deploy Java with Maven and JFrog
-
+name: Build, Deploy and Generate Reports
 on:
+  workflow_dispatch:
+    inputs:
+      pom_version:
+        description: 'POM Version'
+        required: false
+        default: '1.3-SNAPSHOT'
   push:
     branches: [ "Sample-App-Github-Deployer" ]
   pull_request:
