@@ -2,7 +2,7 @@ name: Build and Deploy Java with Maven and JFrog
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Sample-App-Github-Deployer" ]
   pull_request:
 
 jobs:
