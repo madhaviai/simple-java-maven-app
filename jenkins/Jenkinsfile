@@ -11,7 +11,7 @@ pipeline {
             JFROG_M2_REPO='opsera_customer1_m2'
             JFROG_URL='https://trial28qn92.jfrog.io/artifactory'
             JFROG_RELEASE_REPO='opsera_customer1_release'
-            JFROG_TEST_REPORT_REPO='opsera_customer1_test_report'
+            JFROG_TEST_REPORT_REPO='opsera_customer1_test_reports'
             POM_VERSION ='1.3-SNAPSHOT'
            
 
