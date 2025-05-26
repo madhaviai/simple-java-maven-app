@@ -12,6 +12,9 @@ pipeline {
             JFROG_URL='https://trial28qn92.jfrog.io/artifactory'
             JFROG_RELEASE_REPO='opsera_customer1_release'
             JFROG_TEST_REPORT_REPO='opsera_customer1_test_report'
+            POM_VERSION ='1.3-SNAPSHOT'
+           
+
             JFROG_TEST_REPORT_PASSWORD = credentials('JFROG_TEST_REPORT_PASSWORD') // Best practice to use credstore
             JFROG_USERNAME = credentials('JFROG_USERNAME') // Best practice to use credstore
             JFROG_RELEASE_PASSWORD = credentials('JFROG_RELEASE_PASSWORD') // Best practice to use credstore
