@@ -36,9 +36,10 @@ jobs:
 
     - name: Build and Deploy (Skip Tests)
       run: |
-          mvn -B -DskipTests clean deploy
           echo ${env.JFROG_RELEASE_REPO}
           echo ${env.JFROG_USERNAME}
+          mvn -B -DskipTests clean deploy
+          
 
     - name: Run Tests
       run: mvn test
