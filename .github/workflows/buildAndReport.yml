@@ -13,6 +13,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: opsera_customer1
 
     env:
       JFROG_URL: https://trial28qn92.jfrog.io/artifactory
