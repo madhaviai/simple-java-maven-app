@@ -21,15 +21,9 @@ pipeline {
         stage('Load .env') {
             steps {
                 script {
-                    // Read .env into a map manually
-                    def envContent = readFile('.env')
-                    envContent.split('\n').each { line ->
-                        line = line.trim()
-                        if (line && !line.startsWith('#')) {
-                            def (key, value) = line.split('=', 2)
-                            env[key.trim()] = value.trim()
-                        }
-                    }
+                  def props = readProperties file: '.env'
+                  withEnv(props.collect { k, v -> "${k}=${v}" }) {
+                  }
                 }
             }
         }
